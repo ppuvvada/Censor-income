@@ -70,6 +70,9 @@ class DataPreprocessor(object):
         
         self.df.replace([' Self-emp-not-inc',' Self-emp-inc',' Federal-gov',' State-gov',' Local-gov'],
                [' Self-emp', ' Self-emp', ' Gov', ' Gov', ' Gov',],inplace=True)
+        
+        del self.df['capital-gain']
+        del self.df['capital-loss']
 
     def balanceDataframe(self):
         df = self.df
@@ -123,7 +126,7 @@ class DataPreprocessor(object):
 
         df_balanced_dummies = self.df_balanced_dummies
 
-        cols_to_norm = ['age','fnlwgt', 'hours-per-week']
+        cols_to_norm = ['age','fnlwgt', 'hours-per-week', 'educational-num']
         df_balanced_dummies[cols_to_norm] = df_balanced_dummies[cols_to_norm].apply(lambda x: (x - x.min()) / (x.max() - x.min()))
         self.df_norm = df_balanced_dummies
   
